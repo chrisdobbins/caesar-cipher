@@ -24,7 +24,7 @@ def cipher(text):
             lower_ch = char.lower()
             encrypted_text += cipher_map[lower_ch]
         else:
-            encrypted_text += char 
+            encrypted_text += char
     #print(encrypted_text)
     return encrypted_text
 
