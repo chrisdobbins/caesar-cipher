@@ -3,6 +3,7 @@ import importlib
 import sys
 import io
 import builtins
+import cipher
 
 @pytest.mark.parametrize("original_sentence,encrypted_sentence",
                         [['python is fun!', 'udymts nx kzs!'],
@@ -11,14 +12,9 @@ import builtins
                         ['A sentence with Capital letters.', 'f xjsyjshj bnym hfunyfq qjyyjwx.'],
                         ['#$%^&*()', '#$%^&*()']
                         ])
-def test_cipher(original_sentence, encrypted_sentence, monkeypatch):
-    mocked_stdout = io.StringIO()
+def test_cipher(original_sentence, encrypted_sentence):
+    #mocked_stdout = io.StringIO()
 
-    with monkeypatch.context() as m:
-        inputs = iter([original_sentence])
-        m.setattr(builtins, "input", lambda _: next(inputs))
-        m.setattr(sys, "stdout", mocked_stdout)
-        sys.modules.pop("cipher", None)
-        importlib.import_module(name="cipher", package="files")
+    result = cipher.cipher(original_sentence)
     
-    assert encrypted_sentence in mocked_stdout.getvalue().strip()
+    assert result == encrypted_sentence
